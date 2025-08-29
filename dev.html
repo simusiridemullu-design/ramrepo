@@ -9,9 +9,11 @@
     font-family: Arial, sans-serif;
     margin: 20px;
     padding: 0;
+    background-color: #f9f9f9;
   }
   h1 {
     text-align: center;
+    color: #333;
   }
   .car-list {
     display: flex;
@@ -25,6 +27,12 @@
     width: 200px;
     border-radius: 8px;
     text-align: center;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  .car:hover {
+    transform: scale(1.05);
   }
   .car img {
     width: 100%;
@@ -36,6 +44,12 @@
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .booking-form h2 {
+    text-align: center;
+    color: #222;
   }
   .booking-form label {
     display: block;
@@ -45,6 +59,8 @@
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
   .booking-form button {
     margin-top: 15px;
@@ -55,6 +71,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
   }
   .booking-form button:hover {
     background-color: #0c7cd5;
@@ -94,7 +111,14 @@
   const carList = document.getElementById("carList");
   const carSelect = document.getElementById("carSelect");
 
-  // Render cars
+  // Add default select option
+  const defaultOption = document.createElement("option");
+  defaultOption.textContent = "Select a car";
+  defaultOption.disabled = true;
+  defaultOption.selected = true;
+  carSelect.appendChild(defaultOption);
+
+  // Render cars dynamically
   cars.forEach(car => {
     const carDiv = document.createElement("div");
     carDiv.className = "car";
@@ -126,10 +150,11 @@
     if (!car) {
       alert("Please select a car.");
       return;
-    } 
+    }
 
     const totalPrice = car.pricePerDay * days;
-    alert(`Booking Confirmed!\nCompany: ${car.company}\nCar: ${car.name}\nDate: ${date}\nDays: ${days}\nTotal Price: $${totalPrice}`);
+
+    alert(`Booking Confirmed!\n\nCompany: ${car.company}\nCar: ${car.name}\nDate: ${date}\nDays: ${days}\nTotal Price: $${totalPrice}`);
   }
 </script>
 </body>
