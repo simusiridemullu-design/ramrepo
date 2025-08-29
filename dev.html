@@ -9,11 +9,9 @@
     font-family: Arial, sans-serif;
     margin: 20px;
     padding: 0;
-    background-color: #f9f9f9;
   }
   h1 {
     text-align: center;
-    color: #333;
   }
   .car-list {
     display: flex;
@@ -27,12 +25,6 @@
     width: 200px;
     border-radius: 8px;
     text-align: center;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-  }
-  .car:hover {
-    transform: scale(1.05);
   }
   .car img {
     width: 100%;
@@ -44,12 +36,6 @@
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  .booking-form h2 {
-    text-align: center;
-    color: #222;
   }
   .booking-form label {
     display: block;
@@ -59,8 +45,6 @@
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
   }
   .booking-form button {
     margin-top: 15px;
@@ -71,7 +55,6 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
   }
   .booking-form button:hover {
     background-color: #0c7cd5;
@@ -88,9 +71,7 @@
 <div class="booking-form">
   <h2>Book Your Car</h2>
   <label for="carSelect">Select Car:</label>
-  <select id="carSelect" required>
-    <option value="" disabled selected>-- Select a Car --</option>
-  </select>
+  <select id="carSelect"></select>
 
   <label for="date">Booking Date:</label>
   <input type="date" id="date" required />
@@ -113,7 +94,7 @@
   const carList = document.getElementById("carList");
   const carSelect = document.getElementById("carSelect");
 
-  // Render cars dynamically
+  // Render cars
   cars.forEach(car => {
     const carDiv = document.createElement("div");
     carDiv.className = "car";
@@ -136,25 +117,19 @@
     const date = document.getElementById("date").value;
     const days = parseInt(document.getElementById("days").value);
 
-    if (!selectedCarId) {
-      alert("Please select a car before booking.");
-      return;
-    }
-
     if (!date) {
       alert("Please select a booking date.");
       return;
     }
 
-    if (days < 1 || isNaN(days)) {
-      alert("Number of days must be at least 1.");
-      return;
-    }
-
     const car = cars.find(c => c.id === selectedCarId);
-    const totalPrice = car.pricePerDay * days;
+    if (!car) {
+      alert("Please select a car.");
+      return;
+    } 
 
-    alert(`✅ Booking Confirmed!\n\n🚗 Company: ${car.company}\n🚙 Car: ${car.name}\n📅 Date: ${date}\n⏳ Days: ${days}\n💰 Total Price: $${totalPrice}`);
+    const totalPrice = car.pricePerDay * days;
+    alert(`Booking Confirmed!\nCompany: ${car.company}\nCar: ${car.name}\nDate: ${date}\nDays: ${days}\nTotal Price: $${totalPrice}`);
   }
 </script>
 </body>
